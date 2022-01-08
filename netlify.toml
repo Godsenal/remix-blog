@@ -3,6 +3,9 @@
   functions = "netlify/functions"
   publish = "public"
 
+[functions]
+  included_files = ["posts/**"]
+
 [dev]
   command = "remix watch"
   port = 3000
