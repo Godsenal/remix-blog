@@ -18,12 +18,12 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 const Post = () => {
-  const { title, body } = useLoaderData<TPost>();
+  const { title, content } = useLoaderData<TPost>();
 
   return (
     <div>
       <h1>{title}</h1>
-      <p dangerouslySetInnerHTML={{ __html: body }} />
+      <p dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };

@@ -5,15 +5,18 @@ import { getPosts, TPost } from "~/loader/post";
 export const loader: LoaderFunction = () => getPosts();
 
 const Post = () => {
-  const posts = useLoaderData<Pick<TPost, "title">[]>();
+  const posts = useLoaderData<TPost[]>();
 
   return (
     <div>
       <h1>Posts</h1>
-      {posts.map(({ title }) => (
-        <Link key={title} to={`/posts/${title}`}>
-          {title}
-        </Link>
+      {posts.map(({ slug, title, excerpt }) => (
+        <div key={slug}>
+          <Link to={`/posts/${slug}`}>
+            <h1>{title}</h1>
+          </Link>
+          {excerpt && <p>{excerpt}</p>}
+        </div>
       ))}
     </div>
   );
