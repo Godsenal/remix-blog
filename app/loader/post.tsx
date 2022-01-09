@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
 import removeMd from "remove-markdown";
+import prism from "prismjs";
 
 export type TPostMatter = {
   title: string;
@@ -17,6 +18,16 @@ export type TPost = {
   excerpt?: string;
   content: string;
 } & TPostMatter;
+
+marked.setOptions({
+  highlight: (code, lang) => {
+    if (prism.languages[lang]) {
+      return prism.highlight(code, prism.languages[lang], lang);
+    } else {
+      return code;
+    }
+  },
+});
 
 // netlify 서버 실행이 netlify/functions/server/build/index.js 에서 이루어짐.
 // 해당 서버 기준으로 relative하게 path 생성

@@ -1,5 +1,11 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import { getPost, TPost } from "~/loader/post";
+import styles from "prismjs/themes/prism-tomorrow.css";
+import PageLayout from "~/components/PageLayout";
+
+export const links = () => {
+  return [{ rel: "stylesheet", href: styles }];
+};
 
 export const loader: LoaderFunction = async ({ params }) => {
   try {
@@ -21,10 +27,10 @@ const Post = () => {
   const { title, content } = useLoaderData<TPost>();
 
   return (
-    <div>
-      <h1>{title}</h1>
-      <p dangerouslySetInnerHTML={{ __html: content }} />
-    </div>
+    <PageLayout>
+      <h1 className="text-3xl mb-10">{title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </PageLayout>
   );
 };
 
