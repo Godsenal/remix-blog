@@ -1,11 +1,15 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": [
-    "react-app",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+  "extends": ["react-app", "eslint:recommended", "prettier"],
+  "overrides": [
+    {
+      "files": ["*.{ts,tsx}"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
   ]
 }

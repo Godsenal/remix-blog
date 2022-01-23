@@ -1,13 +1,21 @@
 import { Post } from "@prisma/client";
-import { ActionFunction, Form, redirect, useActionData } from "remix";
+import {
+  ActionFunction,
+  Form,
+  LoaderFunction,
+  redirect,
+  useActionData,
+} from "remix";
 import invariant from "tiny-invariant";
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
+import { getUserId, requireUser } from "~/utils/auth.server";
 
 type TPostInput = Pick<Post, "title" | "content">;
 type TError = Record<keyof TPostInput, string>;
 
 export const action: ActionFunction = async ({ request }) => {
+  const userId = await getUserId(request);
   const formData = await request.formData();
 
   const errors = {} as Record<keyof TPostInput, string>;
@@ -28,9 +36,17 @@ export const action: ActionFunction = async ({ request }) => {
   invariant(typeof title === "string");
   invariant(typeof content === "string");
 
-  const result = await db.post.create({ data: { title, content } });
+  console.log(userId);
+
+  const result = await db.post.create({
+    data: { title, content, author_id: Number(userId) },
+  });
 
   return redirect(`/posts/${result.post_id}`);
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return await requireUser(request);
 };
 
 const PostEdit = () => {
