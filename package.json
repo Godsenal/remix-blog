@@ -4,34 +4,31 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "npm run build:css && remix build",
+    "build": "npm run build:css && PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate && remix build",
     "build:css": "tailwindcss -i ./app/config/tailwind.css -o ./app/tailwind.css",
-    "dev": "concurrently \"npm run dev:css\" \"cross-env NODE_ENV=development netlify dev\"",
+    "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -i ./app/config/tailwind.css -o ./app/tailwind.css --watch",
     "lint": "eslint app/**/*.{js,jsx,ts,tsx} && prettier --write app/**/*.{js,jsx,ts,tsx}",
-    "postinstall": "remix setup node"
+    "postinstall": "remix setup node",
+    "start": "remix-serve build",
+    "deploy": "fly deploy --remote-only"
   },
   "dependencies": {
-    "@netlify/functions": "^0.10.0",
-    "@remix-run/netlify": "^1.1.1",
-    "@remix-run/react": "^1.1.1",
-    "gray-matter": "^4.0.3",
-    "marked": "^4.0.9",
+    "@prisma/client": "^3.8.1",
+    "@remix-run/react": "^1.1.3",
+    "@remix-run/serve": "^1.1.3",
     "prismjs": "^1.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.1.1",
-    "remove-markdown": "^0.3.0"
+    "remix": "^1.1.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
-    "@types/marked": "^4.0.1",
     "@types/prismjs": "^1.16.6",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
-    "@types/remove-markdown": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "concurrently": "^7.0.0",
@@ -41,6 +38,7 @@
     "eslint-config-react-app": "^7.0.0",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
+    "prisma": "^3.8.1",
     "tailwindcss": "^3.0.12",
     "typescript": "^4.5.4"
   },

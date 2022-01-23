@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import PageLayout from "~/components/PageLayout";
-import { getPosts, TPost } from "~/loader/post";
 
-export const loader: LoaderFunction = () => getPosts();
+export const loader: LoaderFunction = () => [];
 
 const Post = () => {
-  const posts = useLoaderData<TPost[]>();
+  const posts = useLoaderData<any[]>();
 
   return (
     <PageLayout>

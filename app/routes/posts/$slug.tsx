@@ -1,5 +1,4 @@
 import { LoaderFunction, useLoaderData } from "remix";
-import { getPost, TPost } from "~/loader/post";
 import styles from "prismjs/themes/prism-tomorrow.css";
 import PageLayout from "~/components/PageLayout";
 
@@ -13,9 +12,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       throw new Error("No slug provided");
     }
 
-    const post = await getPost(params.slug);
-
-    return post;
+    return { title: "temp", content: "temp" };
   } catch (e) {
     throw new Response("Not Found", {
       status: 404,
@@ -24,7 +21,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 const Post = () => {
-  const { title, content } = useLoaderData<TPost>();
+  const { title, content } = useLoaderData();
 
   return (
     <PageLayout>
