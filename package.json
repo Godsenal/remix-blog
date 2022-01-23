@@ -11,7 +11,8 @@
     "lint": "eslint app/**/*.{js,jsx,ts,tsx} && prettier --write app/**/*.{js,jsx,ts,tsx}",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
-    "deploy": "fly deploy --remote-only"
+    "deploy": "fly deploy --remote-only",
+    "prisma:generate": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
@@ -20,7 +21,8 @@
     "prismjs": "^1.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.1.1"
+    "remix": "^1.1.1",
+    "tiny-invariant": "^1.2.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.1",

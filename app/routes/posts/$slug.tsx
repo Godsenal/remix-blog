@@ -1,6 +1,8 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import styles from "prismjs/themes/prism-tomorrow.css";
 import PageLayout from "~/components/PageLayout";
+import db from "~/db/db.server";
+import { Post } from "@prisma/client";
 
 export const links = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -12,7 +14,11 @@ export const loader: LoaderFunction = async ({ params }) => {
       throw new Error("No slug provided");
     }
 
-    return { title: "temp", content: "temp" };
+    const post = await db.post.findFirst({
+      where: { post_id: Number(params.slug) },
+    });
+
+    return post;
   } catch (e) {
     throw new Response("Not Found", {
       status: 404,
@@ -20,15 +26,15 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 };
 
-const Post = () => {
-  const { title, content } = useLoaderData();
+const PostView = () => {
+  const { title, content } = useLoaderData<Post>();
 
   return (
     <PageLayout>
       <h1 className="text-3xl mb-10">{title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
     </PageLayout>
   );
 };
 
-export default Post;
+export default PostView;

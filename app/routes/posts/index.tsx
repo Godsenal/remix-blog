@@ -1,25 +1,31 @@
+import { Post } from "@prisma/client";
 import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import PageLayout from "~/components/PageLayout";
+import db from "~/db/db.server";
 
-export const loader: LoaderFunction = () => [];
+export const loader: LoaderFunction = async () => {
+  const posts = await db.post.findMany({ take: 100 });
 
-const Post = () => {
-  const posts = useLoaderData<any[]>();
+  return posts;
+};
+
+const PostList = () => {
+  const posts = useLoaderData<Post[]>();
 
   return (
     <PageLayout>
       <h1 className="text-3xl mb-10">Posts</h1>
-      {posts.map(({ slug, title, excerpt }) => (
-        <div key={slug} className="mb-5">
-          <Link to={`/posts/${slug}`}>
+      {posts.map(({ post_id, title, content }) => (
+        <div key={post_id} className="mb-5">
+          <Link to={`/posts/${post_id}`}>
             <h1 className="text-xl text-blue-400">{title}</h1>
           </Link>
-          {excerpt && <p>{excerpt}</p>}
+          {content && <p>{content}</p>}
         </div>
       ))}
     </PageLayout>
   );
 };
 
-export default Post;
+export default PostList;
