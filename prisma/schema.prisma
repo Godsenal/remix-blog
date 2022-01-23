@@ -25,6 +25,7 @@ model Profile {
 
 model User {
   email    String    @unique
+  password String
   name     String?
   user_id  Int       @id @default(autoincrement())
   posts    Post[]
