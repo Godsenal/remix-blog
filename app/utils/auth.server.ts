@@ -94,7 +94,13 @@ export async function getUser(request: Request) {
     const user = await db.user.findUnique({
       where: { user_id: Number(id) },
     });
-    return user;
+
+    if (user) {
+      const { password, ...other } = user;
+      return other;
+    }
+
+    return null;
   } catch {
     throw logout(request);
   }

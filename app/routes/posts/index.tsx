@@ -1,12 +1,14 @@
 import { Post } from "@prisma/client";
 import { LoaderFunction, useLoaderData } from "remix";
-import ChakraLink from "~/components/ChakraLink";
 import PageLayout from "~/components/PageLayout";
 import PostList from "~/components/PostList";
 import db from "~/db/db.server";
 
 export const loader: LoaderFunction = async () => {
-  const posts = await db.post.findMany({ take: 100 });
+  const posts = await db.post.findMany({
+    take: 100,
+    orderBy: { created_at: "desc" },
+  });
 
   return posts;
 };
@@ -16,7 +18,6 @@ const Posts = () => {
 
   return (
     <PageLayout>
-      <ChakraLink to="/post/edit">글 작성</ChakraLink>
       <PostList posts={posts} />
     </PageLayout>
   );

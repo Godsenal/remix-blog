@@ -81,7 +81,7 @@ const PostEdit = () => {
   };
 
   return (
-    <PageLayout>
+    <PageLayout withHeader={false}>
       <Stack spacing={4}>
         <FormControl isInvalid={!!errors?.title}>
           <Input
