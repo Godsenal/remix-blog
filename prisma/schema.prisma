@@ -11,6 +11,7 @@ datasource db {
 model Post {
   post_id   Int     @id @default(autoincrement())
   content   String?
+  excerpt   String?
   title     String
   author_id Int?
   author    User?   @relation(fields: [author_id], references: [user_id])
