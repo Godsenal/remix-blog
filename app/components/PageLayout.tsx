@@ -29,9 +29,11 @@ const PageLayout = ({
           position="fixed"
           top={0}
           left={0}
+          bg="white"
           borderBottom="1px solid"
           borderColor="gray.100"
           w="full"
+          zIndex="sticky"
         >
           <HStack h="60px" px={6}>
             <Box>
