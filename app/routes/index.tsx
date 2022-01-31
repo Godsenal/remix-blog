@@ -1,14 +1,26 @@
-import { Heading } from "@chakra-ui/react";
-import { Link } from "remix";
+import { Post } from "@prisma/client";
+import { LoaderFunction, useLoaderData } from "remix";
 import PageLayout from "~/components/PageLayout";
+import PostList from "~/components/PostList";
+import db from "~/db/db.server";
 
-export default function Index() {
+export const loader: LoaderFunction = async () => {
+  const posts = await db.post.findMany({
+    take: 100,
+    orderBy: { created_at: "desc" },
+  });
+
+  return posts;
+};
+
+const Posts = () => {
+  const posts = useLoaderData<Post[]>();
+
   return (
     <PageLayout>
-      <Heading>오호</Heading>
-      <section className="">
-        <Link to="/posts">Post 보러가기</Link>
-      </section>
+      <PostList posts={posts} />
     </PageLayout>
   );
-}
+};
+
+export default Posts;
