@@ -32,7 +32,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  await requireUser(request);
+  const userId = await requireUser(request);
 
   const post = await db.post.findUnique({
     where: { post_id: Number(params.slug) },
@@ -40,6 +40,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   if (!post) {
     throw new Response("Not Found", { status: 404 });
+  }
+
+  if (post.author_id !== Number(userId)) {
+    throw new Response("Forbidden", { status: 403 });
   }
 
   return post;
