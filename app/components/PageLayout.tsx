@@ -45,7 +45,7 @@ const PageLayout = ({
             <HStack>
               {user ? (
                 <>
-                  <ChakraLink to="/post/edit">새 글 작성</ChakraLink>
+                  <ChakraLink to="/posts/new">새 글 작성</ChakraLink>
                   <Box>{user.name}</Box>
                   <Form action="/logout" method="post">
                     <Button type="submit">로그아웃</Button>
