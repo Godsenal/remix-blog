@@ -17,7 +17,6 @@ type TProps = {
 
 const Editor = ({ isViewer, content, setEditor }: TProps) => {
   const [lowlight, setLowlight] = useState<any>();
-  console.log(lowlight);
   const editor = useEditor(
     {
       editable: !isViewer,

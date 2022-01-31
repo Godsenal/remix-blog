@@ -8,12 +8,12 @@ const PostList = ({ posts }: TProps) => {
   return (
     <>
       <Heading>Posts</Heading>
-      {posts.map(({ post_id, title, content }) => (
+      {posts.map(({ post_id, title, excerpt }) => (
         <div key={post_id} className="mb-5">
           <Link to={`/posts/${post_id}`}>
             <Heading size="lg">{title}</Heading>
           </Link>
-          {content && <p>{content}</p>}
+          {excerpt && <p>{excerpt}</p>}
         </div>
       ))}
     </>
