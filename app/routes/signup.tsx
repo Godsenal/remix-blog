@@ -1,35 +1,20 @@
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import { ActionFunction, Form, redirect, useActionData } from "remix";
-import invariant from "tiny-invariant";
 import PageLayout from "~/components/PageLayout";
 import { register } from "~/utils/auth.server";
+import { userScheme } from "~/utils/validate";
 
 type TErrors = Record<keyof Pick<User, "email" | "password">, string>;
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
+  const formData = await userScheme.validateForm(await request.formData());
 
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const errors = {} as TErrors;
-
-  if (!email) {
-    errors.email = "이메일을 입력해주세요.";
+  if (formData.errors) {
+    return formData.errors;
   }
 
-  if (!password) {
-    errors.password = "비밀번호를 입력해주세요.";
-  }
-
-  if (Object.keys(errors).length) {
-    return errors;
-  }
-
-  invariant(typeof email === "string");
-  invariant(typeof password === "string");
-
-  await register({ email, password });
+  await register(formData.data);
 
   return redirect("/login");
 };

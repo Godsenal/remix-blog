@@ -14,42 +14,29 @@ import {
   redirect,
   useFetcher,
 } from "remix";
-import invariant from "tiny-invariant";
 import type { Editor as EditorType } from "@tiptap/core";
 import Editor from "~/components/Editor";
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
 import { getUserId, requireUser } from "~/utils/auth.server";
 import { highlightCSS } from "~/utils/editor";
+import { postScheme } from "~/utils/validate";
 
-type TPostInput = Pick<Post, "title" | "content">;
+type TPostInput = Pick<Post, "title" | "content" | "excerpt">;
 type TError = Record<keyof TPostInput, string>;
 
 export const links: LinksFunction = () => [highlightCSS];
 
 export const action: ActionFunction = async ({ request }) => {
   const userId = await getUserId(request);
-  const formData = await request.formData();
+  const formData = await postScheme.validateForm(await request.formData());
 
-  const errors = {} as Record<keyof TPostInput, string>;
-  const title = formData.get("title");
-  const content = formData.get("content");
-  const excerpt = formData.get("excerpt");
-
-  if (!title) {
-    errors.title = "title is required";
+  if (formData.errors) {
+    return formData.errors;
   }
-
-  if (Object.keys(errors).length) {
-    return errors;
-  }
-
-  invariant(typeof title === "string");
-  invariant(typeof content === "string");
-  invariant(typeof excerpt === "string");
 
   const result = await db.post.create({
-    data: { title, content, excerpt, author_id: Number(userId) },
+    data: { ...formData.data, author_id: Number(userId) },
   });
 
   return redirect(`/posts/${result.post_id}`);
