@@ -1,3 +1,13 @@
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Stack,
+  Textarea,
+} from "@chakra-ui/react";
 import { Post } from "@prisma/client";
 import {
   ActionFunction,
@@ -54,25 +64,21 @@ const PostEdit = () => {
 
   return (
     <PageLayout>
-      <Form method="post" className="flex flex-col space-y-4">
-        <div>
-          <label htmlFor="title">제목</label>
-          {errors?.title && (
-            <em className="text-red-500 ml-2">{errors.title}</em>
-          )}
-        </div>
-        <input id="title" name="title" className="border-2 rounded-md" />
-        <div>
-          <label htmlFor="content">내용</label>
+      <Stack as={Form} method="post">
+        <FormControl isInvalid={!!errors?.title}>
+          <FormLabel htmlFor="title">제목</FormLabel>
+          <Input id="title" name="title" />
+          {errors?.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
+        </FormControl>
+        <FormControl isInvalid={!!errors?.content}>
+          <FormLabel htmlFor="content">내용</FormLabel>
+          <Textarea id="content" name="content" />
           {errors?.content && (
-            <em className="text-red-500 ml-2">{errors.content}</em>
+            <FormErrorMessage>{errors.content}</FormErrorMessage>
           )}
-        </div>
-        <textarea id="content" name="content" className="border-2 rounded-md" />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          완료
-        </button>
-      </Form>
+        </FormControl>
+        <Button type="submit">완료</Button>
+      </Stack>
     </PageLayout>
   );
 };

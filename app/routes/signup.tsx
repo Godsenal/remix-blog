@@ -1,3 +1,4 @@
+import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import classNames from "classnames";
 import { ActionFunction, Form, redirect, useActionData } from "remix";
@@ -39,36 +40,28 @@ const Login = () => {
 
   return (
     <PageLayout>
-      <Form
-        method="post"
-        className="flex flex-col space-y-4 max-w-screen-md mx-auto"
-      >
-        <label htmlFor="email">이메일</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          className={classNames(
-            "border-2 rounded-md",
-            errors?.email && "border-red-500"
-          )}
-        />
-        <label htmlFor="password">비밀번호</label>
-        <input
-          id="password"
-          name="password"
-          className={classNames(
-            "border-2 rounded-md",
-            errors?.password && "border-red-500"
-          )}
-          type="password"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white rounded-md py-4"
-        >
-          회원가입
-        </button>
+      <Form method="post">
+        <Stack>
+          <FormControl>
+            <FormLabel htmlFor="email">이메일</FormLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              isInvalid={!!errors?.email}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="password">비밀번호</FormLabel>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              isInvalid={!!errors?.password}
+            />
+          </FormControl>
+          <Button type="submit">회원가입</Button>
+        </Stack>
       </Form>
     </PageLayout>
   );

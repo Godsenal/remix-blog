@@ -7,11 +7,7 @@ import {
   ScrollRestoration,
 } from "remix";
 import type { MetaFunction } from "remix";
-import styles from "./tailwind.css";
-
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
+import { ChakraProvider } from "@chakra-ui/react";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
@@ -27,7 +23,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <ChakraProvider>
+          <Outlet />
+        </ChakraProvider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

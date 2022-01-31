@@ -3,6 +3,7 @@ import styles from "prismjs/themes/prism-tomorrow.css";
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
 import { Post } from "@prisma/client";
+import { Heading } from "@chakra-ui/react";
 
 export const links = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -31,7 +32,7 @@ const PostView = () => {
 
   return (
     <PageLayout>
-      <h1 className="text-3xl mb-10">{title}</h1>
+      <Heading>{title}</Heading>
       {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
     </PageLayout>
   );

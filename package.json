@@ -4,10 +4,8 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "npm run build:css && PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate && remix build",
-    "build:css": "tailwindcss -i ./app/config/tailwind.css -o ./app/tailwind.css",
-    "dev": "concurrently \"npm run dev:css\" \"node -r dotenv/config node_modules/.bin/remix dev\"",
-    "dev:css": "tailwindcss -i ./app/config/tailwind.css -o ./app/tailwind.css --watch",
+    "build": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate && remix build",
+    "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "lint": "eslint app/**/*.{js,jsx,ts,tsx} && prettier --write app/**/*.{js,jsx,ts,tsx}",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
@@ -16,12 +14,16 @@
     "prisma:push": "node scripts/prisma_origin db push"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.8.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@prisma/client": "^3.8.1",
     "@remix-run/react": "^1.1.3",
     "@remix-run/serve": "^1.1.3",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.1",
     "dotenv": "^14.2.0",
+    "framer-motion": "^5.6.0",
     "prismjs": "^1.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -30,8 +32,6 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.1",
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/prismjs": "^1.16.6",
     "@types/react": "^17.0.24",
@@ -46,7 +46,6 @@
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "prisma": "^3.8.1",
-    "tailwindcss": "^3.0.12",
     "typescript": "^4.5.4"
   },
   "engines": {
