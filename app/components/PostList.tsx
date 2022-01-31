@@ -1,22 +1,28 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { Post } from "@prisma/client";
 import { Link } from "remix";
+import format from "date-fns/format";
+import parseISO from "date-fns/parseISO";
 
 type TProps = { posts: Post[] };
 
 const PostList = ({ posts }: TProps) => {
   return (
-    <>
-      <Heading>Posts</Heading>
-      {posts.map(({ post_id, title, excerpt }) => (
-        <div key={post_id} className="mb-5">
+    <Stack spacing={10}>
+      {posts.map(({ post_id, title, excerpt, created_at }) => (
+        <Box key={post_id}>
           <Link to={`/posts/${post_id}`}>
-            <Heading size="lg">{title}</Heading>
+            <Stack spacing={5}>
+              <Heading size="xl">{title}</Heading>
+              {excerpt && <Text fontSize="lg">{excerpt}</Text>}
+              <Text>
+                {format(parseISO(created_at.toString()), "yyyy-MM-dd")}
+              </Text>
+            </Stack>
           </Link>
-          {excerpt && <p>{excerpt}</p>}
-        </div>
+        </Box>
       ))}
-    </>
+    </Stack>
   );
 };
 

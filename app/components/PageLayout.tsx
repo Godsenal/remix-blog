@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 const PageLayout = ({ children }: PropsWithChildren<unknown>) => {
   return (
-    <Container mt={10} maxW="container.lg">
+    <Container mt={10} maxW="container.md">
       {children}
     </Container>
   );

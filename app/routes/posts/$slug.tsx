@@ -16,6 +16,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     const post = await db.post.findFirst({
       where: { post_id: Number(params.slug) },
+      orderBy: {},
     });
 
     return post;
@@ -28,7 +29,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const PostView = () => {
   const { title, content } = useLoaderData<Post>();
-  console.log(title, content);
 
   return (
     <PageLayout>
