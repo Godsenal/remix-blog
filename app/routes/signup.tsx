@@ -1,6 +1,5 @@
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { User } from "@prisma/client";
-import classNames from "classnames";
 import { ActionFunction, Form, redirect, useActionData } from "remix";
 import invariant from "tiny-invariant";
 import PageLayout from "~/components/PageLayout";
@@ -35,7 +34,7 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect("/login");
 };
 
-const Login = () => {
+const Signup = () => {
   const errors = useActionData<TErrors>();
 
   return (
@@ -67,4 +66,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

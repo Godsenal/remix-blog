@@ -1,13 +1,13 @@
 import {
-  Link as ChakraLink,
-  LinkProps as ChakraLinkProps,
+  Link as LinkComponent,
+  LinkProps as LinkComponentProps,
 } from "@chakra-ui/react";
 import { Link, LinkProps } from "@remix-run/react";
 
-type TProps = LinkProps & ChakraLinkProps;
+type TProps = LinkProps & LinkComponentProps;
 
-const LinkComponent = (props: TProps) => {
-  return <ChakraLink as={Link} {...props} />;
+const ChakraLink = (props: TProps) => {
+  return <LinkComponent as={Link} {...props} />;
 };
 
-export default LinkComponent;
+export default ChakraLink;
