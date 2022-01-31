@@ -1,13 +1,12 @@
-import { LoaderFunction, useLoaderData } from "remix";
-import styles from "prismjs/themes/prism-tomorrow.css";
+import { LinksFunction, LoaderFunction, useLoaderData } from "remix";
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
 import { Post } from "@prisma/client";
 import { Heading } from "@chakra-ui/react";
+import Editor from "~/components/Editor";
+import { highlightCSS } from "~/utils/editor";
 
-export const links = () => {
-  return [{ rel: "stylesheet", href: styles }];
-};
+export const links: LinksFunction = () => [highlightCSS];
 
 export const loader: LoaderFunction = async ({ params }) => {
   try {
@@ -29,11 +28,12 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const PostView = () => {
   const { title, content } = useLoaderData<Post>();
+  console.log(title, content);
 
   return (
     <PageLayout>
       <Heading>{title}</Heading>
-      {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
+      {content && <Editor content={content} isViewer />}
     </PageLayout>
   );
 };
