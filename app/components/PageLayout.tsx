@@ -38,7 +38,7 @@ const PageLayout = ({
           <HStack h="60px" px={6}>
             <Box>
               <ChakraLink to="/">
-                <Heading size="lg">이게 블로그?</Heading>
+                <Heading size="md">이게 블로그?</Heading>
               </ChakraLink>
             </Box>
             <Spacer />

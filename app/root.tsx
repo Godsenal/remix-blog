@@ -1,5 +1,6 @@
 import {
   Links,
+  LinksFunction,
   LiveReload,
   LoaderFunction,
   Meta,
@@ -15,6 +16,7 @@ import { Center, ChakraProvider, Heading, Stack } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import { getUser } from "~/utils/auth.server";
 import ChakraLink from "~/components/ChakraLink";
+import theme from "~/theme";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
@@ -40,7 +42,7 @@ const Document = ({
         <Links />
       </head>
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <ChakraProvider theme={theme}>{children}</ChakraProvider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

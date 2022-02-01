@@ -74,16 +74,20 @@ const PostView = () => {
         <Heading>{title}</Heading>
         <HStack>
           <HStack>
-            <Text>{author.name || "temp"}</Text>
-            <Text>·</Text>
-            <Text>{format(parseISO(created_at.toString()), "yyyy-MM-dd")}</Text>
+            <Text textStyle="caption" color="gray">
+              {author.name || "temp"}
+              {" · "}
+              {format(parseISO(created_at.toString()), "yyyy-MM-dd")}{" "}
+            </Text>
           </HStack>
           <Spacer />
           {isMine && (
             <>
-              <ChakraLink to={`/posts/${slug}/edit`}>수정</ChakraLink>
               <Form method="post">
-                <Button type="submit" variant="unstyled" color="red.400">
+                <Button variant="link" textDecoration="none">
+                  <ChakraLink to={`/posts/${slug}/edit`}>수정</ChakraLink>
+                </Button>
+                <Button type="submit" variant="link" color="red.400">
                   삭제
                 </Button>
               </Form>

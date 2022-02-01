@@ -7,7 +7,8 @@
     "build": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate && remix build",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "lint": "eslint app/**/*.{js,jsx,ts,tsx} && prettier --write app/**/*.{js,jsx,ts,tsx}",
-    "postinstall": "remix setup node",
+    "gen:theme-typings": "chakra-cli tokens app/theme.ts",
+    "postinstall": "remix setup node && npm run gen:theme-typings",
     "start": "remix-serve build",
     "deploy": "fly deploy --remote-only",
     "prisma:generate": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate",
@@ -39,6 +40,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^1.7.0",
     "@remix-run/dev": "^1.1.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^17.0.24",

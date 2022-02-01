@@ -15,7 +15,7 @@ const PostList = ({ posts }: TProps) => {
             <Stack spacing={5}>
               <Heading size="xl">{title}</Heading>
               {excerpt && <Text fontSize="lg">{excerpt}</Text>}
-              <Text>
+              <Text textStyle="caption" color="gray">
                 {format(parseISO(created_at.toString()), "yyyy-MM-dd")}
               </Text>
             </Stack>
