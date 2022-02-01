@@ -10,15 +10,7 @@ import {
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
 import { Post, User } from "@prisma/client";
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Spacer,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Heading, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
 import Editor from "~/components/Editor";
 import { highlightCSS } from "~/utils/editor";
 import format from "date-fns/format";
@@ -48,13 +40,17 @@ export const action: LoaderFunction = async ({ request, params }) => {
 export const loader: LoaderFunction = async ({ params }) => {
   try {
     if (!params.slug) {
-      throw new Error("No slug provided");
+      throw new Error();
     }
 
-    const post = await db.post.findFirst({
+    const post = await db.post.findUnique({
       where: { post_id: Number(params.slug) },
       include: { author: true },
     });
+
+    if (!post) {
+      throw new Error();
+    }
 
     return post;
   } catch (e) {
