@@ -5,6 +5,7 @@ import {
   GrItalic,
   GrStrikeThrough,
   GrBlockQuote,
+  GrLink,
 } from "react-icons/gr";
 import { BiCodeBlock, BiCode, BiImage } from "react-icons/bi";
 
@@ -15,6 +16,7 @@ export enum Menu {
   Bold = "bold",
   Italic = "italic",
   Strike = "strike",
+  Link = "link",
   Blockquote = "blockquote",
   Code = "code",
   CodeBlock = "codeBlock",
@@ -45,6 +47,31 @@ export const initMenuOptions = (editor: Editor) => ({
     isActive: () => editor.isActive(Menu.Strike),
     activate: () => editor.chain().focus().toggleStrike().run(),
     Toolbar: GrStrikeThrough,
+  },
+  [Menu.Link]: {
+    isActive: () => editor.isActive(Menu.Link),
+    activate: () => {
+      const previousUrl = editor.getAttributes(Menu.Link).href;
+      const url = window.prompt("URL", previousUrl);
+
+      if (url === null) {
+        return;
+      }
+
+      if (url === "") {
+        editor.chain().focus().extendMarkRange(Menu.Link).unsetLink().run();
+
+        return;
+      }
+
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange(Menu.Link)
+        .setLink({ href: url })
+        .run();
+    },
+    Toolbar: GrLink,
   },
   [Menu.Blockquote]: {
     isActive: () => editor.isActive(Menu.Blockquote),

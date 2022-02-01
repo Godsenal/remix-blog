@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Placeholder from "@tiptap/extension-placeholder";
+import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import Image from "@tiptap/extension-image";
 import { useEditor, EditorContent, ReactNodeViewRenderer } from "@tiptap/react";
@@ -26,6 +27,7 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
         Placeholder.configure({
           placeholder: "글을 작성해보세요.",
         }),
+        Link,
         Image,
         lowlight &&
           CodeBlockLowlight.extend({
@@ -115,6 +117,9 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
           border: "none",
           borderTop: "2px solid rgba(#0d0d0d, 0.1)",
           margin: "2rem 0",
+        },
+        a: {
+          textDecoration: "underline",
         },
       }}
     >
