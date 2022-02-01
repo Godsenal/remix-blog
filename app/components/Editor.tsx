@@ -22,7 +22,7 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
       editable: !isViewer,
       content,
       extensions: [
-        StarterKit,
+        StarterKit.configure({ codeBlock: false }),
         Placeholder.configure({
           placeholder: "글을 작성해보세요.",
         }),
