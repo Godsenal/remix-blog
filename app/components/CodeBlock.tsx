@@ -17,6 +17,7 @@ const CodeBlock = ({
         <Box position="absolute" top={2} right={2}>
           <Select
             size="xs"
+            bg="black"
             color="white"
             userSelect="none"
             display="inline-block"

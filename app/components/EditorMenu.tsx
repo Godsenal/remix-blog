@@ -10,7 +10,7 @@ const EditorMenu = ({ editor }: TProps) => {
   const options = initMenuOptions(editor);
 
   return (
-    <ButtonGroup spacing={1}>
+    <ButtonGroup spacing={1} w="full" overflowX="auto">
       {Object.values(Menu).map((menu) => {
         const option = options[menu];
 

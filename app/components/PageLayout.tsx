@@ -61,7 +61,7 @@ const PageLayout = ({
           </HStack>
         </Box>
       )}
-      <Container mt="100px" maxW="container.md">
+      <Container mt="60px" py={10} maxW="container.md">
         {children}
       </Container>
     </>
