@@ -123,7 +123,11 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
           margin: "2rem 0",
         },
         a: {
-          textDecoration: "underline",
+          color: "success",
+          textDecoration: "none",
+          _hover: {
+            textDecoration: "underline",
+          },
         },
       }}
     >

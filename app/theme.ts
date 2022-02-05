@@ -1,6 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
+  semanticTokens: {
+    colors: {
+      error: "#0070f3",
+      success: "#0070f3",
+    },
+  },
   styles: {
     global: {
       "html, body": {
@@ -13,6 +19,25 @@ const theme = extendTheme({
   textStyles: {
     caption: {
       fontSize: "0.9rem",
+    },
+  },
+  components: {
+    Link: {
+      variants: {
+        menu: {
+          color: "gray.600",
+          _hover: {
+            color: "gray.900",
+            textDecoration: "none",
+          },
+        },
+        link: {
+          color: "success",
+        },
+      },
+      defaultProps: {
+        variant: "link",
+      },
     },
   },
 });

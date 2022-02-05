@@ -37,7 +37,7 @@ const PageLayout = ({
         >
           <HStack h="60px" px={6}>
             <Box>
-              <ChakraLink to="/">
+              <ChakraLink to="/" variant="menu">
                 <Heading size="md">이게 블로그?</Heading>
               </ChakraLink>
             </Box>
@@ -45,7 +45,9 @@ const PageLayout = ({
             <HStack>
               {user ? (
                 <>
-                  <ChakraLink to="/posts/new">새 글 작성</ChakraLink>
+                  <ChakraLink to="/posts/new" variant="menu">
+                    새 글 작성
+                  </ChakraLink>
                   <Box>{user.name}</Box>
                   <Form action="/logout" method="post">
                     <Button type="submit">로그아웃</Button>
@@ -53,8 +55,12 @@ const PageLayout = ({
                 </>
               ) : (
                 <>
-                  <ChakraLink to="/login">로그인</ChakraLink>
-                  <ChakraLink to="/register">회원가입</ChakraLink>
+                  <ChakraLink variant="menu" to="/login">
+                    로그인
+                  </ChakraLink>
+                  <ChakraLink variant="menu" to="/signup">
+                    회원가입
+                  </ChakraLink>
                 </>
               )}
             </HStack>

@@ -12,12 +12,23 @@ const PostList = ({ posts }: TProps) => {
       {posts.map(({ post_id, title, excerpt, created_at }) => (
         <Box key={post_id}>
           <Link to={`/posts/${post_id}`} prefetch="intent">
-            <Stack spacing={5}>
-              <Heading size="xl">{title}</Heading>
-              {excerpt && <Text fontSize="lg">{excerpt}</Text>}
+            <Stack
+              spacing={3}
+              sx={{
+                "&:hover > h2": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              <Heading size="lg">{title}</Heading>
               <Text textStyle="caption" color="gray">
                 {format(parseISO(created_at.toString()), "yyyy-MM-dd")}
               </Text>
+              {excerpt && (
+                <Text fontSize="lg" noOfLines={2}>
+                  {excerpt}
+                </Text>
+              )}
             </Stack>
           </Link>
         </Box>

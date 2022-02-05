@@ -10,7 +10,27 @@ import {
 import PageLayout from "~/components/PageLayout";
 import db from "~/db/db.server";
 import { Post, User } from "@prisma/client";
-import { Button, Heading, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  Heading,
+  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spacer,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { FiMoreVertical } from "react-icons/fi";
 import Editor from "~/components/Editor";
 import { highlightCSS } from "~/utils/editor";
 import format from "date-fns/format";
@@ -18,6 +38,7 @@ import parseISO from "date-fns/parseISO";
 import ChakraLink from "~/components/ChakraLink";
 import { TOutletContext } from "~/types/context";
 import { getUserId } from "~/utils/auth.server";
+import { useRef } from "react";
 
 export const links: LinksFunction = () => [highlightCSS];
 
@@ -61,6 +82,9 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 const PostView = () => {
+  const alertState = useDisclosure();
+  const $cancelButton = useRef<HTMLButtonElement>(null);
+  const $deleteForm = useRef<HTMLFormElement>(null);
   const { user } = useOutletContext<TOutletContext>();
   const { slug } = useParams();
   const { title, content, author, created_at } = useLoaderData<
@@ -83,18 +107,47 @@ const PostView = () => {
           <Spacer />
           {isMine && (
             <>
-              <Form method="post">
-                <Button variant="link" textDecoration="none">
-                  <ChakraLink to={`/posts/${slug}/edit`}>수정</ChakraLink>
-                </Button>
-                <Button type="submit" variant="link" color="red.400">
-                  삭제
-                </Button>
-              </Form>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<FiMoreVertical />}
+                  bg="white"
+                />
+                <MenuList>
+                  <MenuItem>
+                    <ChakraLink to={`/posts/${slug}/edit`}>수정</ChakraLink>
+                  </MenuItem>
+                  <MenuItem onClick={alertState.onOpen}>삭제</MenuItem>
+                </MenuList>
+              </Menu>
             </>
           )}
         </HStack>
         {content && <Editor content={content} isViewer />}
+        <AlertDialog
+          motionPreset="slideInBottom"
+          {...alertState}
+          leastDestructiveRef={$cancelButton}
+          isCentered
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>정말 삭제하시겠습니까?</AlertDialogHeader>
+            <AlertDialogCloseButton />
+            <AlertDialogFooter>
+              <Button ref={$cancelButton} onClick={alertState.onClose}>
+                아니요
+              </Button>
+              <Form method="post" ref={$deleteForm}>
+                <Button type="submit" colorScheme="red" ml={3}>
+                  네
+                </Button>
+              </Form>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </Stack>
     </PageLayout>
   );
