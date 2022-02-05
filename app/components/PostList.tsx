@@ -11,7 +11,7 @@ const PostList = ({ posts }: TProps) => {
     <Stack spacing={10}>
       {posts.map(({ post_id, title, excerpt, created_at }) => (
         <Box key={post_id}>
-          <Link to={`/posts/${post_id}`}>
+          <Link to={`/posts/${post_id}`} prefetch="intent">
             <Stack spacing={5}>
               <Heading size="xl">{title}</Heading>
               {excerpt && <Text fontSize="lg">{excerpt}</Text>}
