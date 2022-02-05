@@ -4,7 +4,7 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate && remix build",
+    "build": "npm run prisma:generate && remix build",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "lint": "eslint app/**/*.{js,jsx,ts,tsx} && prettier --write app/**/*.{js,jsx,ts,tsx}",
     "gen:theme-typings": "chakra-cli tokens app/theme.ts",
