@@ -66,8 +66,8 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
           height: 0,
           pointerEvents: "none",
         },
-        "* + *": {
-          marginTop: 0.75,
+        ".ProseMirror > * + *": {
+          my: 5,
         },
         "ul, ol": {
           padding: "0 1rem",
@@ -81,11 +81,15 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
         h3: {
           fontSize: "xl",
         },
+        "h1, h2, h3": {
+          py: 2.5,
+        },
         code: {
           backgroundColor: "gray.300",
           color: "black",
           padding: "0.2em 0.4em",
           borderRadius: "md",
+          fontSize: "0.9rem",
         },
         pre: {
           background: "#0d0d0d",

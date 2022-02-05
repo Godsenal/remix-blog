@@ -6,7 +6,7 @@ const theme = extendTheme({
       "html, body": {
         color: "gray.800",
         lineHeight: "tall",
-        fontSize: "1.125rem",
+        fontSize: "1.05rem",
       },
     },
   },
