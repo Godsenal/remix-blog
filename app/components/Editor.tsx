@@ -59,7 +59,7 @@ const Editor = ({ isViewer, content, setEditor }: TProps) => {
           py: 2,
           outline: "none",
         },
-        "p.is-editor-empty:first-child::before": {
+        "p.is-editor-empty:first-of-type::before": {
           color: "#adb5bd",
           content: "attr(data-placeholder)",
           float: "left",
